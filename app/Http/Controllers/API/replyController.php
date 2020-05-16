@@ -29,7 +29,7 @@ class replyController extends Controller
             ],422);
         }
         $reply=Reply::create($request->only('discussion_id','user_id','text'));
-        return new  ChannelResource($reply);
+        return new  ReplyResource($reply);
     }
 
     /**

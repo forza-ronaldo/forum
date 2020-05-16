@@ -3,7 +3,7 @@ console.log("guest middleware run")
     if( store.getters['auth/token'])
     {
         console.log('token found')
-        return next({name:'home'});
+        return next({name:'dashboard'});
     }
     else
     {

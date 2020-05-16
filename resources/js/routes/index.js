@@ -43,14 +43,15 @@ const router = new VueRouter({
         {
             path: "/dashboard",
             component: dashboard,
-            meta: {
-                middleware: [checkAuth]
-            },
+
             children: [
                 {
                     path: "",
                     component: Index,
                     name: "dashboard",
+                    meta: {
+                        middleware: [checkAuth]
+                    },
                 },
                 {
                     path: 'channel/:channel',

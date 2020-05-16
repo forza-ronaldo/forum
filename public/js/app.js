@@ -2314,6 +2314,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19066,14 +19067,16 @@ var render = function() {
         _vm._v(" "),
         _c("span", { staticClass: "float-right mt-2" }, [
           _vm._v("\n    Posted In\n    "),
-          _c(
-            "span",
-            {
-              staticClass:
-                "rounded-full bg-red-500 text-white font-bold text-sm py-1 px-2"
-            },
-            [_vm._v(_vm._s(_vm.discussion.channel.title))]
-          )
+          _vm.discussion.channel
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "rounded-full bg-red-500 text-white font-bold text-sm py-1 px-2"
+                },
+                [_vm._v(_vm._s(_vm.discussion.channel.title))]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -19082,20 +19085,22 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "bg-white flex-grow" }, [
-            _c("h3", { staticClass: "font-bold text-lg mt-2" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(_vm.discussion.user.name) +
-                  "\n                    "
-              ),
-              _c("span", { staticClass: "text-gray-500 text-sm" }, [
-                _vm._v(
-                  "\n          " +
-                    _vm._s(_vm.discussion.published_at) +
-                    "\n        "
-                )
-              ])
-            ]),
+            _vm.discussion.user
+              ? _c("h3", { staticClass: "font-bold text-lg mt-2" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.discussion.user.name) +
+                      "\n                    "
+                  ),
+                  _c("span", { staticClass: "text-gray-500 text-sm" }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(_vm.discussion.published_at) +
+                        "\n        "
+                    )
+                  ])
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("p", {
               staticClass: "text-gray-600 text-sm mt-6",
@@ -19106,32 +19111,38 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm._l(_vm.discussion.replies, function(reply) {
-        return _c(
-          "div",
-          {
-            key: reply.id,
-            staticClass: "container mx-auto bg-white flex mb-1 p-3"
-          },
-          [
-            _vm._m(1, true),
-            _vm._v(" "),
-            _c("span", { staticClass: "bg-white flex-grow" }, [
-              _c("h3", { staticClass: "font-bold text-lg mt-2" }, [
-                _vm._v("\n        " + _vm._s(reply.user.name) + "\n        "),
-                _c("span", { staticClass: "text-gray-500 text-sm" }, [
-                  _vm._v(
-                    "\n          " + _vm._s(reply.published_at) + "\n        "
-                  )
+        return _vm.discussion.replies
+          ? _c(
+              "div",
+              {
+                key: reply.id,
+                staticClass: "container mx-auto bg-white flex mb-1 p-3"
+              },
+              [
+                _vm._m(1, true),
+                _vm._v(" "),
+                _c("span", { staticClass: "bg-white flex-grow" }, [
+                  _c("h3", { staticClass: "font-bold text-lg mt-2" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(reply.user.name) + "\n        "
+                    ),
+                    _c("span", { staticClass: "text-gray-500 text-sm" }, [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(reply.published_at) +
+                          "\n        "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", {
+                    staticClass: "text-gray-600 text-sm mt-6",
+                    domProps: { innerHTML: _vm._s(reply.text) }
+                  })
                 ])
-              ]),
-              _vm._v(" "),
-              _c("p", {
-                staticClass: "text-gray-600 text-sm mt-6",
-                domProps: { innerHTML: _vm._s(reply.text) }
-              })
-            ])
-          ]
-        )
+              ]
+            )
+          : _vm._e()
       }),
       _vm._v(" "),
       _c(
@@ -36555,7 +36566,7 @@ function guest(_ref) {
   if (store.getters['auth/token']) {
     console.log('token found');
     return next({
-      name: 'home'
+      name: 'dashboard'
     });
   } else {
     console.log('token not found');
@@ -37092,13 +37103,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: "/dashboard",
     component: _pages_dashboard__WEBPACK_IMPORTED_MODULE_6__["default"],
-    meta: {
-      middleware: [_middlewares_auth_check__WEBPACK_IMPORTED_MODULE_11__["default"]]
-    },
     children: [{
       path: "",
       component: _pages_discussion_Index__WEBPACK_IMPORTED_MODULE_7__["default"],
-      name: "dashboard"
+      name: "dashboard",
+      meta: {
+        middleware: [_middlewares_auth_check__WEBPACK_IMPORTED_MODULE_11__["default"]]
+      }
     }, {
       path: 'channel/:channel',
       component: _pages_discussion_discussionsinChannelspecific__WEBPACK_IMPORTED_MODULE_9__["default"],

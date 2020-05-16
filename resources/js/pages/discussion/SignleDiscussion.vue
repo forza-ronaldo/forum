@@ -7,6 +7,7 @@
         Posted In
         <span
             class="rounded-full bg-red-500 text-white font-bold text-sm py-1 px-2"
+            v-if="discussion.channel"
         >{{ discussion.channel.title }}</span>
       </span>
         </div>
@@ -20,7 +21,7 @@
                     />
                 </div>
                 <div class="bg-white flex-grow">
-                    <h3 class="font-bold text-lg mt-2">
+                    <h3 class="font-bold text-lg mt-2" v-if="discussion.user">
                         {{ discussion.user.name }}
                         <span class="text-gray-500 text-sm">
               {{
@@ -32,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div
+        <div v-if="discussion.replies"
             v-for="reply in discussion.replies"
             :key="reply.id"
             class="container mx-auto bg-white flex mb-1 p-3">
@@ -44,7 +45,7 @@
                 />
             </div>
             <span class="bg-white flex-grow">
-          <h3 class="font-bold text-lg mt-2">
+          <h3 class="font-bold text-lg mt-2" >
             {{ reply.user.name }}
             <span class="text-gray-500 text-sm">
               {{
